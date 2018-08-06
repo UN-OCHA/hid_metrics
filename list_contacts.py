@@ -14,7 +14,7 @@ def main():
     while more:
         base_url = 'https://api.humanitarian.id/api/v2/list?limit='+str(LIMIT)+'&offset='+str(OFFSET)+\
                    '&sort=-count&access_token='
-        full_url = base_url + base.ACCESS_TOKEN
+        full_url = base_url + base.API_KEY
         content = base.open_url(full_url)
         for list in content:
             count = list['count']

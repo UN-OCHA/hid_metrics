@@ -13,7 +13,7 @@ def main():
     while more:
         base_url = 'https://api.humanitarian.id/api/v2/user?limit='+str(LIMIT)+'&offset='\
                    +str(OFFSET)+'&sort=name&access_token='
-        full_url = base_url + base.ACCESS_TOKEN
+        full_url = base_url + base.API_KEY
         content = base.open_url(full_url)
         if len(content)!=0:
             for person in content:
