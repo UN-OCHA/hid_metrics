@@ -38,13 +38,19 @@ def main():
 
     # Update Google Sheet
     try:
-        worksheet = base.wks.add_worksheet(title="Verified - No Location", rows=(len(ids)+4), cols=10)
-        worksheet.update_acell('A2', "Verified profiles without location (excludes auth users)")
-        worksheet.update_acell('A3', "User ID")
-        worksheet.update_acell('B3', "Given Name")
-        worksheet.update_acell('C3', "Family Name")
-    except APIError:
-        worksheet = base.wks.worksheet("All - No Location")
+        worksheet = base.wks.worksheet("Verified - No Location")
+    except APIError as e:
+        print("{}: {}".format(type(e).__name__, e))
+        try:
+            worksheet = base.wks.add_worksheet(title="Verified - No Location", rows=(len(ids)+4), cols=10)
+            worksheet.update_acell('A2', "Verified profiles without location (excludes auth users)")
+            worksheet.update_acell('A3', "User ID")
+            worksheet.update_acell('B3', "Given Name")
+            worksheet.update_acell('C3', "Family Name")
+        except:
+            print("Unexpected error:", sys.exc_info()[0], sys.exc_info()[1])
+    except:
+        print("Unexpected error:", sys.exc_info()[0], sys.exc_info()[1])
 
     # Select range
     id_list = worksheet.range('A4:A'+str(len(ids)+3))
