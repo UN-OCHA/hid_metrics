@@ -16,6 +16,7 @@ def main():
                    str(LIMIT)+'&offset='+str(OFFSET)+'&access_token='
         full_url = base_url + base.API_KEY
         content = base.open_url(full_url)
+        print('Getting', LIMIT, 'new records...')
 
         if len(content) != 0:
             for user in content:
