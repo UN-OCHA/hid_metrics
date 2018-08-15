@@ -16,7 +16,7 @@ if os.path.isfile('client_secret.json'):
     credentials = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
     with open('client_secret.json') as f:
         data = json.load(f)
-        API_KEY = data["api_key"]
+        # API_KEY = data["api_key"]
 else:
     creds = {}
     creds["type"] = "service_account"
@@ -30,8 +30,15 @@ else:
     creds["token_uri"] = "https://accounts.google.com/o/oauth2/token"
     creds["auth_provider_x509_cert_url"] = "https://www.googleapis.com/oauth2/v1/certs"
     creds["client_x509_cert_url"] = os.getenv('CLIENT_X509_CERT_URL')
-    API_KEY = os.getenv('API_KEY')
     credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds, scope)
+
+if os.path.isfile('client_secret_hid.json'):
+    with open('client_secret_hid.json') as f:
+        data = json.load(f)
+        API_KEY = data["api_key"]
+else:
+    API_KEY = os.getenv('API_KEY')
+
 gc = gspread.authorize(credentials)
 wks = gc.open("HID Metrics")
 
